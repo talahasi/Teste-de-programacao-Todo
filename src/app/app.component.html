@@ -1,0 +1,68 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3" id="task">
+              <h1 id="title">{{title}}</h1>
+
+            <div class="input-group" >
+                <input id="inputTask" #spy name="task" placeHolder="Adicionar tarefas ..." (keyup.enter)="addTask(taskText)" [(ngModel)]="taskText" class="form-control" required/>
+                  
+                <span class="input-group-addon">
+                 <button (click)="addTask(taskText)"  class="btn btn-md  btn-primary" > <span  class="glyphicon glyphicon-plus" aria-hidden="true" alt="Add"></span></button>
+                  <button (click)="reset()" class="btn btn-md btn-primary">Limpar</button>
+                 
+                </span>
+            </div>
+            
+            <div *ngIf="errMsg">
+                   <p id="errMessage"><strong>Opa ! </strong>{{errMsg}}
+                      <span id="errButton">
+                           <button class="btn btn-default btn-xs" (click)="dismiss()" >Descartar</button>
+                           <button class="btn btn-info btn-xs" (click)="addAnyWay(taskText)" >Adicionar</button>
+                      </span>
+                   </p>
+                   
+            </div>
+           
+             
+              <div *ngIf="Tasks">
+                 <h4  id="ttcTitle" >Tarefas a fazer  <span class="badge "  style="background-color:rgb(206, 64, 21)">{{totalTaskToComplete}}</span></h4><hr />
+                     <ul class="list-group">
+                        
+                         <li  *ngFor="let task of Tasks" class="list-group-item taskToComplete"> 
+                             <span class="dateTime">{{task.timeStamp |date}} </span> 
+                           
+                            <span class="list-group-addon ctrlButtons " >
+                                <button (click)="markAsComplete(task)" class="btn btn-xs btn-success">Finalizada</button>
+                                <button (click)="editTask(task)" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
+                                <button (click)="deleteTask(task)" class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+                            </span><br />
+                            {{task.name}}
+                         </li>  
+                     </ul>
+              </div>  
+              
+             
+
+
+             
+
+              <div *ngIf="dTask">
+                <h4 style="color:rgb(0, 153, 153)">Tarefas completadas  <span class="badge"  style="background-color:rgb(206, 64, 21)">{{completedTask}}</span></h4><hr/>
+                <ul class="list-group">
+                  <li  *ngFor="let task of dTask" class="list-group-item colmpletedTask"> 
+                     <span class="dateTime">Finalizada em :{{task.timeStamp |date}}</span>
+                   
+                     <span class="list-group-addon" style="float:right">
+                       <button (click)="deleteDTask(task)" class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+                     </span><br />
+                      {{task.name}}
+                   
+                  </li>
+                </ul>
+              </div>
+                
+      </div>       
+
+    </div>
+
+</div>
